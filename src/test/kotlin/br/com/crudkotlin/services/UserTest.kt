@@ -5,16 +5,14 @@ import br.com.crudkotlin.models.UserDTO
 import br.com.crudkotlin.repositories.UserRepository
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.BeforeEach
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.springframework.web.server.ResponseStatusException
 import java.util.*
 
 @RunWith(JUnit4::class)
@@ -41,13 +39,19 @@ class UserTest {
 
     @Test
     fun shouldCreate() {
-        every { userRepository.findByUsernameOrEmail(userDTO.username, userDTO.email) } returns Optional.empty()
+        every { userRepository.findByUsernameOrEmail(userDTO.username, userDTO.email) } returns null
         every { objectMapper.convertValue(userDTO, User::class.java) } returns user
         every { userRepository.save(user) } returns user
 
-        val userSave = userService.save(userDTO)
+        val userSave = userService.create(userDTO)
 
         assert(userSave.id == user.id)
+    }
+
+    @Test(expected = ResponseStatusException::class)
+    fun shouldNotCreate() {
+        every { userRepository.findByUsernameOrEmail(userDTO.username, userDTO.email) } returns user
+        userService.create(userDTO)
     }
 
 }

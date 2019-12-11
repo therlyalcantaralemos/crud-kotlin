@@ -14,7 +14,7 @@ class UserController(private val userService: UserService){
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun save(@Valid @RequestBody userDTO: UserDTO): User{
-        return userService.save(userDTO);
+        return userService.create(userDTO);
     }
 
     @PutMapping("/{id}")

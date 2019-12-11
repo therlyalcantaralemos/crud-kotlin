@@ -16,8 +16,8 @@ import org.springframework.web.server.ResponseStatusException
 class UserService @Autowired constructor (private val userRepository: UserRepository,
                                           private val objectMapper: ObjectMapper = ObjectMapper().registerModule(KotlinModule())){
 
-    fun save(userDTO: UserDTO) : User {
-        userRepository.findByUsernameOrEmail(userDTO.username, userDTO.email)?.isPresent ?: throw ResponseStatusException(HttpStatus.FOUND)
+    fun create(userDTO: UserDTO) : User {
+        userRepository.findByUsernameOrEmail(userDTO.username, userDTO.email)?.let { throw ResponseStatusException(HttpStatus.FOUND) }
         return userRepository.save(objectMapper.convertValue(userDTO, User::class.java))
     }
 
