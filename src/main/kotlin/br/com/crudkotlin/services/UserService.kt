@@ -21,7 +21,7 @@ class UserService @Autowired constructor (private val userRepository: UserReposi
         return userRepository.save(objectMapper.convertValue(userDTO, User::class.java))
     }
 
-    fun update(id: String, userDTO: UserDTO) : User{
+    fun update(id: String, userDTO: UserDTO) : User {
         val user = getById(id)
         user.toUpdateWith(objectMapper.convertValue(userDTO, User::class.java))
         return userRepository.save(user)
@@ -29,7 +29,7 @@ class UserService @Autowired constructor (private val userRepository: UserReposi
 
     fun delete(id: String) = userRepository.delete(getById(id))
 
-    fun getById(id: String) : User =  userRepository.findById(id).orElse(null) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+    fun getById(id: String) : User = userRepository.findById(id).orElse(null) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
 }
 

@@ -19,7 +19,7 @@ class UserController(private val userService: UserService){
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun update(@PathVariable id: String, @RequestBody userDTO: UserDTO): User {
+    fun update(@PathVariable id: String, @Valid @RequestBody userDTO: UserDTO): User {
         return userService.update(id, userDTO);
     }
 

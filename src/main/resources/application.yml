@@ -5,4 +5,4 @@ spring:
       ACCEPT_CASE_INSENSITIVE_ENUMS: true
   data:
     mongodb:
-      uri: mongodb://localhost:27017/kotlin
+      uri: mongodb://localhost:27017/crudkotlin
