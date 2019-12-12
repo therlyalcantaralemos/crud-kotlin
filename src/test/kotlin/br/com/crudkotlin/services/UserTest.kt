@@ -13,7 +13,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.springframework.web.server.ResponseStatusException
-import java.util.*
 
 @RunWith(JUnit4::class)
 class UserTest {
@@ -22,7 +21,7 @@ class UserTest {
     lateinit var userRepository: UserRepository
 
     @MockK
-    lateinit var objectMapper: ObjectMapper;
+    lateinit var objectMapper: ObjectMapper
 
     @InjectMockKs
     lateinit var userService: UserService
@@ -32,13 +31,13 @@ class UserTest {
 
     @Before
     fun setUp() {
-        MockKAnnotations.init(this);
+        MockKAnnotations.init(this)
         userDTO = UserDTO("therly","therly@gmail.com")
         user = User("132456789","therly","therly@gmail.com")
     }
 
     @Test
-    fun shouldCreate() {
+    fun `When create user then return user`() {
         every { userRepository.findByUsernameOrEmail(userDTO.username, userDTO.email) } returns null
         every { objectMapper.convertValue(userDTO, User::class.java) } returns user
         every { userRepository.save(user) } returns user

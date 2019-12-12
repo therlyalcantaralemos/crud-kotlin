@@ -10,4 +10,6 @@ interface UserRepository : MongoRepository<User, String>{
 
     fun findByUsernameOrEmail(username: String,email: String): User?
 
+    fun findByEmail(email: String?): User?
+
 }

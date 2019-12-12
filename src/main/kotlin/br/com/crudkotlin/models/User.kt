@@ -12,6 +12,7 @@ import java.time.LocalDateTime
 data class User(@Id val id: String? = null,
                 var username: String = "",
                 var email: String = "",
+                var password: String = "",
                 @JsonIgnore @Version var version: Long? = null,
                 @JsonIgnore @CreatedDate var createdAt: LocalDateTime? = null,
                 @JsonIgnore @LastModifiedDate var updatedAt: LocalDateTime? = null)
