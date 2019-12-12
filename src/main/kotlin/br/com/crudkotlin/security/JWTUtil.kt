@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.interfaces.DecodedJWT
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.stereotype.Component
 import java.time.Instant
 import java.util.*
@@ -15,13 +16,16 @@ class JWTUtil {
     private var secret: String = "secret"
     private val expiration: Long = 60000
 
-    fun generateToken(username: String): String {
+    fun generateToken(
+        username: String,
+        roles: MutableCollection<GrantedAuthority>
+    ): String {
         val now = Instant.now()
-        return JWT.create()//HS512
+        return JWT.create()
                 .withSubject(username)
                 .withIssuedAt(Date.from(now))
                 .withExpiresAt(Date(System.currentTimeMillis() + expiration))
-                //.withArrayClaim("roles", roles.toTypedArray())
+                .withArrayClaim("roles", roles.map { role -> role.authority }.toTypedArray())
                 .sign(Algorithm.HMAC512(secret))
     }
 

@@ -38,10 +38,7 @@ class UserService @Autowired constructor (private val userRepository: UserReposi
 
     fun getById(id: String) : User = userRepository.findById(id).orElse(null) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
-    private fun getCurrentUserEmail(): String? {
-        val user = SecurityContextHolder.getContext().authentication.principal as UserDetailsImpl
-        return user.username
-    }
+
 
 }
 

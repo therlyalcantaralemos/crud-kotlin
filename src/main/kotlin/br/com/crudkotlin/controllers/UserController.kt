@@ -18,31 +18,26 @@ class UserController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    fun save(@Valid @RequestBody userDTO: UserDTO): User{
-        return userService.create(userDTO);
-    }
-
-    @PostMapping("/singin")
-    fun teste(){
-        //return userService.create(userDTO);
+    fun save(@Valid @RequestBody userDTO: UserDTO): User {
+        return userService.create(userDTO)
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: String, @Valid @RequestBody userDTO: UserDTO): User {
-        return userService.update(id, userDTO);
+        return userService.update(id, userDTO)
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable id: String){
-        userService.delete(id);
+    fun delete(@PathVariable id: String) {
+        userService.delete(id)
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun getById(@PathVariable id: String) : User{
-        return userService.getById(id);
+    fun getById(@PathVariable id: String): User {
+        return userService.getById(id)
     }
 
 }
